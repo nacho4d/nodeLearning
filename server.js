@@ -5,17 +5,17 @@ var url = require("url");
 
 
 //Start serve at a given path or route
-function start(route){
+function start(route, handler){
 
   // Define a handler for each request
   function onRequest(request, response) {
     var pathname = url.parse(request.url).pathname;
     console.log("Request for "+ pathname + " received.");
-    
-    route(pathname);
-    
     response.writeHead(200, {"Content-Type": "text/plain"});
-    response.write("Hello World from http_server.js");
+    // Uses the given function 'route' to find the 'handler' for 'pathname'
+    var content = route(handler, pathname);
+    response.write(content);
+    //response.write("Hello World from http_server.js");
     response.end();
   }
 
