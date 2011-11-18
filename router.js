@@ -3,16 +3,17 @@
 @param handle : array of functions. Key:pathname, Object:RequestHandler
 @param pathname : string. Key to be used in @handle
 @param response : response object. Used to write the output
+@param postData : data received by POST
 */
 
-function route(handle, pathname, response) {
+function route(handle, pathname, response, postData) {
   console.log("About to route a request for " + pathname);
 
   // If there is a function that handles pathname
   if (typeof handle[pathname] === 'function') {
 
     //Handle the request
-    handle[pathname](response);
+    handle[pathname](response, postData);
 
   // Otherwise end with 404 Not found.
   } else {
